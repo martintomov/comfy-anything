@@ -1,5 +1,7 @@
 # ComfyUI Experiments
 
+ComfyUI workflows and nodes I experiment with.
+
 ## Installing ComfyUI on Mac OS
 
 This guide walks you through the process of setting up ComfyUI on a Mac computer running on M1, M2, or M3 processors. ComfyUI is a powerful tool for creating custom workflows and leveraging AI capabilities for image and animation generation.
