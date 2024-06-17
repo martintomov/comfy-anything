@@ -1,6 +1,6 @@
 # Comfy Anything 🐈
 
-Custom ComfyUI workflows running on [fal.ai](https://fal.ai)
+Community ComfyUI workflows running on [fal.ai](https://fal.ai)
 
 ## Contributing
 

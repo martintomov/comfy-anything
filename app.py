@@ -118,7 +118,9 @@ def submit_sync_sdxl_rembg(image_upload, positive_prompt, negative_prompt):
 def run_gradio_app():
     with gr.Blocks() as demo:
         gr.Markdown("# Comfy Anything 🐈")
-        gr.Markdown("### Custom ComfyUI workflows running on [fal.ai](https://fal.ai)")
+        gr.Markdown("### Community ComfyUI workflows running on [fal.ai](https://fal.ai)")
+        gr.Markdown("### [Comfy Anything on GitHub](https://github.com/martintmv-git/comfy-anything)")
+        gr.Markdown("### Support the project on [ko-fi.com/martintmv](https://ko-fi.com/martintmv)")
 
         with gr.Row():
             with gr.Column(scale=1):
