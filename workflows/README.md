@@ -8,9 +8,9 @@ This guide provides step-by-step instructions on how to submit your ComfyUI work
 
 ## Example Directory Structure
 
-workflows/
-├── username-my-awesome-workflow/
-  └── your-workflow.json
+workflows/ <br>
+├── username-my-awesome-workflow/ <br>
+........└── your-workflow.json
 
 ## Steps to Submit Your Workflow Request (in browser)
 
