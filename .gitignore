@@ -2,3 +2,4 @@
 node_modules/
 dist/
 .env
+/gradio_cached_examples

@@ -1,3 +1,4 @@
+# HF Spaces
 import gradio as gr
 import asyncio
 import fal_client
@@ -7,6 +8,14 @@ from io import BytesIO
 import time
 import base64
 import json
+# --------------------------------------------
+# Local Dev
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+FAL_KEY = os.getenv("FAL_KEY")
+# --------------------------------------------
 
 with open("examples/examples.json") as f:
     examples = json.load(f)
@@ -118,11 +127,15 @@ def submit_sync_sdxl_rembg(image_upload, positive_prompt, negative_prompt):
 def run_gradio_app():
     with gr.Blocks() as demo:
         gr.Markdown("# Comfy Anything 🐈")
-        gr.Markdown("### Community ComfyUI workflows running on [fal.ai](https://fal.ai)")
-        gr.Markdown("### [Comfy Anything on GitHub](https://github.com/martintmv-git/comfy-anything)")
-        gr.Markdown("### Support the project on [ko-fi.com/martintmv](https://ko-fi.com/martintmv)")
+        gr.Markdown("### Gradio for community made ComfyUI workflows running on [fal.ai](https://fal.ai)")
+        gr.Markdown("#### Comfy Anything on [GitHub](https://github.com/martintmv-git/comfy-anything)")
+        gr.Markdown("#### Support the project:")
+        gr.Markdown("- [ko-fi.com/martintmv](https://ko-fi.com/martintmv)")
+        gr.Markdown("- BTC - bc1qs3q0rjpr9fvn9knjy5aktfr8w5duvvjpezkgt9")
+        gr.Markdown("🚀 Want to run your own workflow? Follow the `README` guide and submit your workflow [here](https://huggingface.co/spaces/martintmv/ComfyAnything/tree/main/workflows).")
+        gr.Markdown("✅ Already deployed on fal.ai? → Open a [Pull Request](https://huggingface.co/spaces/martintmv/ComfyAnything/discussions?new_pr=true).")
 
-        with gr.Row():
+        with gr.Row(): 
             with gr.Column(scale=1):
                 workflow = gr.Dropdown(label="Select Workflow", choices=["IC Light, Replace Background", "SDXL, Depth Anything, Replace Background"], value="IC Light, Replace Background")
                 image_upload = gr.Image(label="Upload Image", type="filepath")

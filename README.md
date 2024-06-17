@@ -1,6 +1,6 @@
 # Comfy Anything 🐈
 
-Community ComfyUI workflows running on [fal.ai](https://fal.ai)
+Gradio for community made ComfyUI workflows running on [fal.ai](https://fal.ai)
 
 ## Contributing
 
@@ -8,7 +8,7 @@ Contributions to this repository are welcome! If you have suggestions for improv
 
 ## Acknowledgments
 
-Thanks to the ComfyUI community for providing the tools and support needed to make this project possible.
+Thanks to the ComfyUI, Gradio and Stable Diffusion communities for providing the tools and support needed to make this project possible.
 
 ## License
 
