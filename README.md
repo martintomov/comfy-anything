@@ -1,6 +1,12 @@
 # Comfy Anything 🐈
 
-Gradio for community made ComfyUI workflows running on [fal.ai](https://fal.ai)
+Community ComfyUI workflows running on [fal.ai](https://fal.ai)
+
+[Demo](https://huggingface.co/spaces/martintmv/ComfyAnything)
+
+<img width="1012" alt="HFDEMO" src="https://github.com/martintmv-git/comfy-anything/assets/101264514/0ed67646-679f-4293-8e8f-6e8b258a3a2c">
+
+
 
 ## Contributing
 
