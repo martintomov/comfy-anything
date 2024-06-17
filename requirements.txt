@@ -1,0 +1,4 @@
+gradio
+fal_client
+requests
+Pillow

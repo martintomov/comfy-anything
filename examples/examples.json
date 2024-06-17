@@ -1,0 +1,27 @@
+[
+    {
+        "input_image": "examples/imgs/i1.png",
+        "positive_prompt": "advertisement photography, orange juice on a table on a sunny summer beach",
+        "negative_prompt": "watermark",
+        "lightsource_start_color": "#FFFFFF",
+        "lightsource_end_color": "#000000",
+        "result_image": "examples/imgs/o1.png",
+        "workflow": "IC Light, Replace Background"
+    },
+    {
+        "input_image": "examples/imgs/i2.png",
+        "positive_prompt": "beer on a table near a sunny pool with palms around",
+        "negative_prompt": "watermark",
+        "lightsource_start_color": "#FFFFFF",
+        "lightsource_end_color": "#000000",
+        "result_image": "examples/imgs/o2.webp",
+        "workflow": "IC Light, Replace Background"
+    },
+    {
+        "input_image": "examples/imgs/i3.jpg",
+        "positive_prompt": "advertisement photography, pair of headphones in a library, plants in the background",
+        "negative_prompt": "watermark",
+        "result_image": "examples/imgs/o3.webp",
+        "workflow": "SDXL, Depth Anything, Replace Background"
+    }
+]
