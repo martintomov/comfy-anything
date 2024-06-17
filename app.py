@@ -66,7 +66,7 @@ async def submit_sdxl_rembg(image_data, positive_prompt, negative_prompt):
     for attempt in range(retries):
         try:
             handler = await fal_client.submit_async(
-                "comfy/martintmv-git/sdxl-rembg",
+                "comfy/martintmv-git/sdxl-depthanything-rembg",
                 arguments={
                     "loadimage_1": image_data,
                     "Positive prompt": positive_prompt,
