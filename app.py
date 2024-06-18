@@ -127,13 +127,11 @@ def submit_sync_sdxl_rembg(image_upload, positive_prompt, negative_prompt):
 def run_gradio_app():
     with gr.Blocks() as demo:
         gr.Markdown("# Comfy Anything 🐈")
-        gr.Markdown("### Gradio for community made ComfyUI workflows running on [fal.ai](https://fal.ai)")
+        gr.Markdown("### Community ComfyUI workflows running on [fal.ai](https://fal.ai)")
         gr.Markdown("#### Comfy Anything on [GitHub](https://github.com/martintmv-git/comfy-anything)")
         gr.Markdown("#### Support the project:")
-        gr.Markdown("- [ko-fi.com/martintmv](https://ko-fi.com/martintmv)")
-        gr.Markdown("- BTC - bc1qs3q0rjpr9fvn9knjy5aktfr8w5duvvjpezkgt9")
-        gr.Markdown("🚀 Want to run your own workflow? Follow the `README` guide and submit your workflow [here](https://huggingface.co/spaces/martintmv/ComfyAnything/tree/main/workflows).")
-        gr.Markdown("✅ Already deployed on fal.ai? → Open a [Pull Request](https://huggingface.co/spaces/martintmv/ComfyAnything/discussions?new_pr=true).")
+        gr.Markdown("- [ko-fi.com/martintmv](https://ko-fi.com/martintmv) 🧡 Bitcoin address - bc1qs3q0rjpr9fvn9knjy5aktfr8w5duvvjpezkgt9")
+        gr.Markdown("🚀 Want to run your own workflow? Follow the `README` guide and submit your workflow [here](https://huggingface.co/spaces/martintmv/ComfyAnything/tree/main/workflows) or open a [PR](https://huggingface.co/spaces/martintmv/ComfyAnything/discussions?new_pr=true).")
 
         with gr.Row(): 
             with gr.Column(scale=1):
