@@ -107,7 +107,46 @@ async def submit_sdxl_rembg(image_data, positive_prompt, negative_prompt):
         except Exception as e:
             print(f"Attempt {attempt + 1} failed: {e}")
             if attempt < retries - 1:
-                time.sleep(2)  # HTTP req retry mechanism
+                time.sleep(2) # HTTP req retry mechanism
+            else:
+                return [f"Error: {str(e)}"], None
+
+# SV3D, AnimateDiff
+async def submit_sv3d(image_data, fps, loop_frames_count, gif_loop):
+    retries = 3
+    for attempt in range(retries):
+        try:
+            handler = await fal_client.submit_async(
+                "comfy/martintmv-git/sv3d",
+                arguments={
+                    "loadimage_1": image_data,
+                    "FPS (bigger number = more speed)": fps,
+                    "Loop Frames Count": loop_frames_count,
+                    "GIF Loop": gif_loop
+                },
+            )
+
+            log_index = 0
+            output_logs = []
+            async for event in handler.iter_events(with_logs=True):
+                if isinstance(event, fal_client.InProgress):
+                    if event.logs:
+                        new_logs = event.logs[log_index:]
+                        for log in new_logs:
+                            output_logs.append(log["message"])
+                        log_index = len(event.logs)
+
+            result = await handler.get()
+            output_logs.append("Processing completed")
+
+            print("API Result:", result)
+
+            gif_url = result["outputs"]["15"]["gifs"][0]["url"]
+            return output_logs, gif_url
+        except Exception as e:
+            print(f"Attempt {attempt + 1} failed: {e}")
+            if attempt < retries - 1:
+                time.sleep(2)
             else:
                 return [f"Error: {str(e)}"], None
 
@@ -124,6 +163,10 @@ def submit_sync_sdxl_rembg(image_upload, positive_prompt, negative_prompt):
     image_data = convert_image_to_base64(Image.open(image_upload))
     return asyncio.run(submit_sdxl_rembg(image_data, positive_prompt, negative_prompt))
 
+def submit_sync_sv3d(image_upload, fps, loop_frames_count, gif_loop):
+    image_data = convert_image_to_base64(Image.open(image_upload))
+    return asyncio.run(submit_sv3d(image_data, fps, loop_frames_count, gif_loop))
+
 def run_gradio_app():
     with gr.Blocks() as demo:
         gr.Markdown("# Comfy Anything 🐈")
@@ -135,12 +178,15 @@ def run_gradio_app():
 
         with gr.Row(): 
             with gr.Column(scale=1):
-                workflow = gr.Dropdown(label="Select Workflow", choices=["IC Light, Replace Background", "SDXL, Depth Anything, Replace Background"], value="IC Light, Replace Background")
+                workflow = gr.Dropdown(label="Select Workflow", choices=["IC Light, Replace Background", "SDXL, Depth Anything, Replace Background", "SV3D"], value="IC Light, Replace Background")
                 image_upload = gr.Image(label="Upload Image", type="filepath")
-                positive_prompt = gr.Textbox(label="Positive Prompt")
-                negative_prompt = gr.Textbox(label="Negative Prompt", value="Watermark")
+                positive_prompt = gr.Textbox(label="Positive Prompt", visible=True)
+                negative_prompt = gr.Textbox(label="Negative Prompt", value="Watermark", visible=True)
                 lightsource_start_color = gr.ColorPicker(label="Start Color", value="#FFFFFF", visible=True)
                 lightsource_end_color = gr.ColorPicker(label="End Color", value="#000000", visible=True)
+                fps = gr.Slider(label="FPS (bigger number = more speed)", minimum=1, maximum=60, step=1, value=8, visible=False)
+                loop_frames_count = gr.Slider(label="Loop Frames Count", minimum=1, maximum=100, step=1, value=30, visible=False)
+                gif_loop = gr.Checkbox(label="GIF Loop", value=True, visible=False)
                 submit_btn = gr.Button("Submit")
 
             with gr.Column(scale=2):
@@ -149,30 +195,37 @@ def run_gradio_app():
 
         def update_ui(workflow):
             if workflow == "IC Light, Replace Background":
-                return gr.update(visible=True), gr.update(visible=True)
-            else:
-                return gr.update(visible=False), gr.update(visible=False)
+                return [gr.update(visible=True), gr.update(visible=True), gr.update(visible=True), gr.update(visible=True), gr.update(visible=False), gr.update(visible=False), gr.update(visible=False)]
+            elif workflow == "SDXL, Depth Anything, Replace Background":
+                return [gr.update(visible=True), gr.update(visible=True), gr.update(visible=False), gr.update(visible=False), gr.update(visible=False), gr.update(visible=False), gr.update(visible=False)]
+            elif workflow == "SV3D":
+                return [gr.update(visible=False), gr.update(visible=False), gr.update(visible=False), gr.update(visible=False), gr.update(visible=True), gr.update(visible=True), gr.update(visible=True)]
 
-        workflow.change(fn=update_ui, inputs=workflow, outputs=[lightsource_start_color, lightsource_end_color])
+        workflow.change(fn=update_ui, inputs=workflow, outputs=[positive_prompt, negative_prompt, lightsource_start_color, lightsource_end_color, fps, loop_frames_count, gif_loop])
 
-        def on_submit(image_upload, positive_prompt, negative_prompt, lightsource_start_color, lightsource_end_color, workflow):
+        def on_submit(image_upload, positive_prompt, negative_prompt, lightsource_start_color, lightsource_end_color, fps, loop_frames_count, gif_loop, workflow):
             if workflow == "IC Light, Replace Background":
-                return submit_sync_ic_light_bria(image_upload, positive_prompt, negative_prompt, lightsource_start_color, lightsource_end_color)
-            else:
-                return submit_sync_sdxl_rembg(image_upload, positive_prompt, negative_prompt)
+                logs, image = submit_sync_ic_light_bria(image_upload, positive_prompt, negative_prompt, lightsource_start_color, lightsource_end_color)
+                return logs, image
+            elif workflow == "SDXL, Depth Anything, Replace Background":
+                logs, image = submit_sync_sdxl_rembg(image_upload, positive_prompt, negative_prompt)
+                return logs, image
+            elif workflow == "SV3D":
+                logs, gif_url = submit_sync_sv3d(image_upload, fps, loop_frames_count, gif_loop)
+                return logs, gif_url
 
         submit_btn.click(
             fn=on_submit,
-            inputs=[image_upload, positive_prompt, negative_prompt, lightsource_start_color, lightsource_end_color, workflow],
+            inputs=[image_upload, positive_prompt, negative_prompt, lightsource_start_color, lightsource_end_color, fps, loop_frames_count, gif_loop, workflow],
             outputs=[output_logs, output_result]
         )
 
         gr.Examples(
             examples=[
-                [example['input_image'], example['positive_prompt'], example['negative_prompt'], example.get('lightsource_start_color', ""), example.get('lightsource_end_color', ""), example['workflow']]
+                [example['input_image'], example['positive_prompt'], example['negative_prompt'], example.get('lightsource_start_color', "#FFFFFF"), example.get('lightsource_end_color', "#000000"), example.get('fps', 8), example.get('loop_frames_count', 30), example.get('gif_loop', True), example['workflow']]
                 for example in examples
             ],
-            inputs=[image_upload, positive_prompt, negative_prompt, lightsource_start_color, lightsource_end_color, workflow],
+            inputs=[image_upload, positive_prompt, negative_prompt, lightsource_start_color, lightsource_end_color, fps, loop_frames_count, gif_loop, workflow],
             outputs=[output_logs, output_result],
             fn=on_submit,
             cache_examples=True
