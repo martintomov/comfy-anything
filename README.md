@@ -2,9 +2,10 @@
 
 Community ComfyUI workflows running on [fal.ai](https://fal.ai)
 
-### [Demo](https://huggingface.co/spaces/martintmv/ComfyAnything)
-
 <img width="1012" alt="HFDEMO" src="https://i.imgur.com/7SH9vbP.jpeg">
+
+## I'll update `/workflows` regularly, so stay tuned!
+Check them out here: [/workflows](https://github.com/martintmv-git/comfy-anything/tree/main/workflows)
 
 ## Contributing
 
