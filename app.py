@@ -8,14 +8,13 @@ from io import BytesIO
 import time
 import base64
 import json
-# --------------------------------------------
+
 # Local Dev
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 FAL_KEY = os.getenv("FAL_KEY")
-# --------------------------------------------
 
 with open("examples/examples.json") as f:
     examples = json.load(f)
@@ -171,10 +170,10 @@ def run_gradio_app():
     with gr.Blocks() as demo:
         gr.Markdown("# Comfy Anything 🐈")
         gr.Markdown("### Community ComfyUI workflows running on [fal.ai](https://fal.ai)")
-        gr.Markdown("#### Comfy Anything on [GitHub](https://github.com/martintmv-git/comfy-anything)")
+        gr.Markdown("#### Comfy Anything on [GitHub](https://github.com/martintomov/comfy-anything)")
         gr.Markdown("#### Support the project:")
-        gr.Markdown("- [ko-fi.com/martintmv](https://ko-fi.com/martintmv) 🧡 Bitcoin address - bc1qs3q0rjpr9fvn9knjy5aktfr8w5duvvjpezkgt9")
-        gr.Markdown("🚀 Want to run your own workflow? Follow the `README` guide and submit your workflow [here](https://huggingface.co/spaces/martintmv/ComfyAnything/tree/main/workflows) or open a [PR](https://huggingface.co/spaces/martintmv/ComfyAnything/discussions?new_pr=true).")
+        gr.Markdown("🧡 Bitcoin address - bc1qs3q0rjpr9fvn9knjy5aktfr8w5duvvjpezkgt9")
+        gr.Markdown("🚀 Want to run your own workflow? Import it into [fal.ai](https://fal.ai)'s ComfyUI and get a Python API endpoint.")
 
         with gr.Row(): 
             with gr.Column(scale=1):
