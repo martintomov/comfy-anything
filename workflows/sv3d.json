@@ -1,6 +1,6 @@
 {
   "last_node_id": 19,
-  "last_link_id": 15,
+  "last_link_id": 14,
   "nodes": [
     {
       "id": 3,
@@ -136,7 +136,7 @@
           "type": "IMAGE",
           "links": [
             7,
-            15
+            14
           ],
           "shape": 3
         }
@@ -310,7 +310,7 @@
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "https://img.freepik.com/premium-vector/cute-teddy-bear-white-background-generative-ai_873674-857.jpg?w=360",
+        "https://martintmv-comfyanything.hf.space/file=/tmp/gradio/63a3f61065e67e1a38ddabedfe08e17e95918e79/image.webp",
         "image"
       ]
     },
@@ -386,7 +386,7 @@
       ],
       "size": [
         315,
-        190
+        230
       ],
       "flags": {},
       "order": 12,
@@ -395,17 +395,27 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 15
+          "link": 14
         },
         {
           "name": "audio",
-          "type": "VHS_AUDIO",
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "meta_batch",
+          "type": "VHS_BatchManager",
+          "link": null
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
           "link": null
         },
         {
           "name": "frame_rate",
-          "type": "INT",
-          "link": 12,
+          "type": "FLOAT",
+          "link": null,
           "widget": {
             "name": "frame_rate"
           }
@@ -413,7 +423,7 @@
         {
           "name": "loop_count",
           "type": "INT",
-          "link": 13,
+          "link": 12,
           "widget": {
             "name": "loop_count"
           }
@@ -421,7 +431,7 @@
         {
           "name": "pingpong",
           "type": "BOOLEAN",
-          "link": 14,
+          "link": 13,
           "widget": {
             "name": "pingpong"
           }
@@ -471,7 +481,7 @@
           "name": "INT",
           "type": "INT",
           "links": [
-            13
+            12
           ],
           "shape": 3
         }
@@ -506,7 +516,7 @@
           "name": "BOOLEAN",
           "type": "BOOLEAN",
           "links": [
-            14
+            13
           ],
           "shape": 3
         }
@@ -537,9 +547,7 @@
         {
           "name": "INT",
           "type": "INT",
-          "links": [
-            12
-          ],
+          "links": null,
           "shape": 3
         }
       ],
@@ -646,30 +654,22 @@
     ],
     [
       12,
-      19,
+      17,
       0,
       15,
-      2,
+      5,
       "INT"
     ],
     [
       13,
-      17,
-      0,
-      15,
-      3,
-      "INT"
-    ],
-    [
-      14,
       18,
       0,
       15,
-      4,
+      6,
       "BOOLEAN"
     ],
     [
-      15,
+      14,
       8,
       0,
       15,
@@ -679,6 +679,14 @@
   ],
   "groups": [],
   "config": {},
-  "extra": {},
+  "extra": {
+    "ds": {
+      "scale": 0.505447028499296,
+      "offset": [
+        350.01296678382715,
+        -41.64127804859933
+      ]
+    }
+  },
   "version": 0.4
 }
